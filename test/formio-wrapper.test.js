@@ -644,5 +644,43 @@ describe('Formio Wrapper Tests.', () => {
     expect(object.shared.pork).equals('none');
   });
 
+  it('_clearStorage removes only Label Buster keys and leaves others intact', async () => {
+    // Label Buster owns three keys: terms acceptance (terms storage),
+    // completion markers and the in-progress wizard data (main storage).
+    wrapper.config.form.title = 'Label Buster';
+    const termsStorage = wrapper.config.terms.termsStorageType;
+    const mainStorage = wrapper.config.storage.type;
+
+    termsStorage.setItem(wrapper.config.terms.termsStorageName, 'true');
+    mainStorage.setItem(wrapper.config.storage.name, '["Label Buster"]');
+    mainStorage.setItem(wrapper.config.form.title, '{"foo":"bar"}');
+
+    // Data owned by an unrelated tool sharing the same origin.
+    mainStorage.setItem('otherToolData', 'keep-me');
+    termsStorage.setItem('otherToolSession', 'keep-me-too');
+
+    // Avoid reloading the Karma runner and avoid needing a real wizard.
+    const reload = stub(wrapper, '_reload');
+    wrapper.wizard.emit = () => {};
+
+    wrapper._clearStorage();
+
+    // Label Buster's own keys are gone.
+    expect(termsStorage.getItem(wrapper.config.terms.termsStorageName)).to.be
+      .null;
+    expect(mainStorage.getItem(wrapper.config.storage.name)).to.be.null;
+    expect(mainStorage.getItem(wrapper.config.form.title)).to.be.null;
+
+    // Unrelated tools' data survives.
+    expect(mainStorage.getItem('otherToolData')).equals('keep-me');
+    expect(termsStorage.getItem('otherToolSession')).equals('keep-me-too');
+
+    assert.calledOnce(reload);
+
+    mainStorage.removeItem('otherToolData');
+    termsStorage.removeItem('otherToolSession');
+    reload.restore();
+  });
+
   afterEach(async () => {});
 });
