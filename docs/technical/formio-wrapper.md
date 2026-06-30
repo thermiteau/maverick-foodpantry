@@ -31,7 +31,7 @@ last-verified: 2026-06-30
 | `DOMContentLoaded` | Triggers `initialise()` — loads Form.io wizard |
 | `formiowrapperGoToNext` | Navigate to next page; scrolls to top |
 | `formiowrapperGoToPrevious` | Navigate to previous page; scrolls to top |
-| `formiowrapperCancel` | Clear storage and reload (hard reset) or navigate to page 0 |
+| `formiowrapperCancel` | Remove Label Buster-owned storage keys and reload via `_reload()` (hard reset), or navigate to page 0 |
 | `formiowrapperGoToPage` | Navigate to specific page (`event.detail.page`) |
 | `formiowrapperSendAdminEmail` | Submit form with `sendEmail = 'admin'` |
 
@@ -95,7 +95,7 @@ Data is double-serialised: each value is `JSON.stringify`'d individually, then t
 | `lbtermsAndConditions` | boolean | Terms acceptance state (separate key in `localStorage`) |
 | `[formio field keys]` | any | All wizard form data fields |
 
-Storage is cleared entirely on Cancel (when `clearStorageOnCancel: true`), which triggers `document.location.reload()`.
+On Cancel (when `clearStorageOnCancel: true`), `_clearStorage()` removes only the three storage keys Label Buster owns — `config.terms.termsStorageName` (terms acceptance), `config.storage.name` (completion markers), and `config.form.title` (in-progress wizard data) — leaving any other data at the same origin intact. After key removal it calls `_reload()`, which wraps `document.location.reload()`.
 
 ## Public API Surface
 
@@ -140,3 +140,5 @@ sequenceDiagram
 - **Custom navigation replaces Form.io native buttons**: Form.io's built-in wizard navigation cannot be styled to match SWE; all buttons are set to hidden in `formioConfig` and replaced by `ButtonGroup`.
 - **Double-JSON serialisation**: Each field is stringified individually before the container object is stringified. This prevents type coercion issues with Form.io's nested data structures when round-tripping through `localStorage`.
 - **IE 11 PDF workaround**: Uses `window.navigator.msSaveOrOpenBlob` for IE 11; `URL.createObjectURL` for modern browsers. Firefox requires `revokeObjectURL` in a 100ms timeout.
+- **Targeted storage removal on cancel**: `_clearStorage()` calls `removeItem()` on each owned key rather than `Storage.clear()`, so other tools sharing the same origin are not affected when a user cancels the wizard.
+- **`_reload()` as a test seam**: `document.location.reload()` is delegated to a dedicated `_reload()` method so tests can stub it without patching the global `document.location`.
