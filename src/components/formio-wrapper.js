@@ -340,14 +340,30 @@ export class FormioWrapper {
   }
 
   /**
+   * @description Removes only the storage keys owned by Label Buster.
+   * Using targeted removeItem() rather than Storage.clear() avoids wiping
+   * data belonging to other tools sharing the same origin.
    */
   _clearStorage() {
-    this.config.terms.termsStorageType.clear();
-    this.config.storage.type.clear();
+    this.config.terms.termsStorageType.removeItem(
+      this.config.terms.termsStorageName,
+    );
+    this.config.storage.type.removeItem(this.config.storage.name);
+    this.config.storage.type.removeItem(this.config.form.title);
     this.lastNavigation = 0;
     this.wizard._seenPages = [];
     this.wizard.emit('resetForm');
     // Hack cause formio doesn't reset properly.
+    this._reload();
+  }
+
+  /**
+   * @description Thin wrapper around the page reload so it can be stubbed
+   * in tests. Form.io does not reset its internal state cleanly, so a
+   * reload is used after clearing storage.
+   */
+  // eslint-disable-next-line class-methods-use-this
+  _reload() {
     document.location.reload();
   }
 
