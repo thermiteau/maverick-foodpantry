@@ -1,0 +1,20 @@
+<h2>Product sheet</h2>
+<p>
+  You can take this information to a printer or graphic designer to create a
+  label or use your own tools/templates. When creating your food label, you must
+  ensure you meet the
+  <a href="#legibility-requirements" rel="noopener" target="_blank"
+    >legibility requirements</a
+  >, such as minimum type size.
+</p>
+
+<div class="product-sheet-row">
+  <div>
+    <strong>Food name and description</strong>
+  </div>
+  <div>
+    {{data.foodName || 'no name provided'}}
+    <br />
+    {{data.productDescription || 'no description provided'}}
+  </div>
+</div>

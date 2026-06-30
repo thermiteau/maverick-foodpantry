@@ -1,0 +1,491 @@
+<link rel="stylesheet" href="./styles.scss" />
+
+<h1>Your label information</h1>
+<section>
+  <div class="alert alert-success" role="alert">
+    <h2>
+      <i class="fa fa-check-circle"></i> Congratulations! You have completed all
+      the steps in Label Buster.
+    </h2>
+    <p>
+      Using your responses to each question, Label Buster has generated a
+      product sheet and an example food label.
+    </p>
+  </div>
+  <p>
+    Label Buster is a brief guide to help you understand your labelling
+    requirements. You may choose to get advice from a labelling consultant to
+    make sure that your label complies with the Food Standards Code.
+  </p>
+  <p>On this page, you will find:</p>
+  <ul>
+    <li>
+      <a href="#product-sheet">Product sheet</a>
+    </li>
+    <li>
+      <a href="#example-label">Example food label</a>
+    </li>
+    <li>
+      <a href="#legibility-requirements">Legibility requirements</a>
+    </li>
+    <li>
+      <a href="#exemptions">Exemptions</a>
+    </li>
+    <li>
+      <a href="#extra-requirements">Food with extra requirements</a>
+    </li>
+    <li>
+      <a href="#download-email">Email your summary</a>
+    </li>
+    <li>
+      <a href="#update">Need to update your label?</a>
+    </li>
+  </ul>
+</section>
+<section>
+  <a name="product-sheet"></a>
+  <h2>Product Sheet</h2>
+  <p>
+    You can take this information to a printer or graphic designer to create a
+    label or use your own tools/templates. When creating your food label, you
+    must ensure you meet the<a href="#legibility-requirements"
+      ><span class="title">legibility requirements</span></a
+    >, such as minimum type size.
+  </p>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Food name and description</td>
+        <td>
+          {{data.foodName || 'no name provided'}}
+          <br />{{data.productDescription || 'no description provided'}}
+        </td>
+      </tr>
+      <tr>
+        <td>Business details</td>
+        <td>
+          <b>{{data.businessName}}</b>
+          <br />{{data.addressDetails.addressLine1}}
+          <br />{{data.addressDetails.addressLine2}} <br /><span class="suburb"
+            >{{data.addressDetails.addressLine3}}</span
+          >
+          <br />{{data.addressDetails.state1}},{{data.addressDetails.postcode}}
+        </td>
+      </tr>
+      <tr>
+        <td>Ingredients</td>
+        <td>
+          <!-- prettier-ignore -->
+          {{data.IngredientData && data.IngredientData.map(function(data){ return ' ' + data.ingredient}) }}
+        </td>
+      </tr>
+      <tr>
+        <td>Weight</td>
+        <td>
+          For information on how to comply with weights and measures laws visit
+          the<a
+            href="https://www.measurement.gov.au"
+            rel="noopener"
+            target="_blank"
+          >
+            National Measurement Institute website </a
+          >.
+        </td>
+      </tr>
+      <tr>
+        <td>Nutrition information panel</td>
+        <td>
+          <p>
+            A Nutrition Information Panel must be added to your food label. The
+            Food Standards Australia New Zealand<a
+              href="https://www.foodstandards.gov.au/industry/npc/Pages/Nutrition-Panel-Calculator-introduction.aspx"
+              rel="noopener"
+              target="_blank"
+            >
+              nutrition panel calculator
+            </a>
+            can help you prepare your nutrition information panel.
+          </p>
+          <img
+            src="https://www.qld.gov.au/?a=148984"
+            alt="example food label"
+            class="src img-fluid"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>Statements and declarations</td>
+        <td>
+          <p>
+            <b>
+              {{data && Object.keys(data.allergyDeclarations).every(k =>
+              !data.allergyDeclarations[k]) ? '':'Contains:'}}
+            </b>
+            <!-- prettier-ignore -->
+            {{
+                _.reduce(_.filter(_.toPairs(data.allergyDeclarations), function([key, val]) { return val }), function(acc, [key, val], index) {
+                  if (index === _.filter(_.toPairs(data.allergyDeclarations), function([key, val]) { return val }).length - 1) return acc + ` ${val}.`;
+                  return acc + ` ${val}, `;
+                }, '')
+              }}
+            <br />
+          </p>
+          <p class="wrap">
+            <!-- prettier-ignore -->
+            {{ data && data.statementsSummary.egg ? 'The product is unpasteurised.' : '' }}
+            {{ data && data.statementsSummary && (data.statementsSummary.alcohol_10G100G || data.statementsSummary.alcohol_25G100G || data.statementsSummary.alcohol_comb_10G100G) ? 'Excess consumption may have a laxative effect.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.aspartame ? 'This product contains phenylalanine.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.phytosterols ? 'This product should be consumed as part of a healthy diet.This product may not be suitable for children under 5 years and pregnant or lactating women.Plant sterols do not provide additional benefits when consumed in excess of 3 grams per day.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.quinine ? 'This product contains quinine.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.guarana ? 'This product contains caffeine.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.bee_pollen ? 'The product contains bee pollen which can cause severe allergic reactions.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.propolls ? 'The product contains propolis which can cause severe allergic reactions.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.royal_jelly ? 'This product contains royal jelly which has been reported to cause severe allergic reactions and in rare cases,fatalities, especially in asthma and allergy sufferers.' : '' }}
+            {{ data && data.statementsSummary && (data.statementsSummary.milk_falt || data.statementsSummary.evaporated_milk || data.statementsSummary.soy_milk || data.statementsSummary.evap_milk)? 'The product is not suitable as a complete milk replacement for children under 2 years.' : '' }}
+            {{ data && data.statementsSummary && (data.statementsSummary.unpasteurised_product || data.statementsSummary.unpasteurised_milk) ? 'The product has not been pasteurised.' : '' }}
+            {{ data && data.statementsSummary && (data.statementsSummary.formed_fish || data.statementsSummary.formed_meat) ? 'This food is formed.' : '' }}
+            {{ data && data.statementsSummary && (data.statementsSummary.joined_fish || data.statementsSummary.joined_meat) ? 'This food is joined.' : '' }}
+            {{ data && data.statementsSummary && (data.statementsSummary.kava_dry || data.statementsSummary.kava_root) ? 'Use in moderation.May cause drowsiness.' : '' }}
+            {{ data && data.statementsSummary && (data.statementsSummary.cola_caffeine || data.statementsSummary.ingredient_caffeine) ? 'The product contains caffeine.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.added_fluoride ? 'The product contains added fluoride.' : '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.Alcohol ? data.statementsSummary.ifSelectedAlcohol + '.': '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.edible_oil ? data.statementsSummary.ifSelectedOil + '.': '' }}
+            {{ data && data.statementsSummary && data.statementsSummary.salt_subs ? data.statementsSummary.ifSelectedSalt + '.': '' }}
+          </p>
+          <p>
+            <!-- prettier-ignore -->
+            {{data && Object.keys(data.allergyDeclarations).every(k => !data.allergyDeclarations[k]) ? 'No data provided':'Note:
+            Warning statements must be a minimum size of type of 3 mm. In the
+            case of small packages, a minimum size of type of 1.5 mm is
+            required.'}}
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>Date marks</td>
+        <td>
+          <strong>{{data.dateMarkFood}}</strong>{{data.bestDate ? ' : ' +
+          data.bestDate : ''}}
+        </td>
+      </tr>
+      <tr>
+        <td>Lot identification</td>
+        <td>
+          {{(data.batch || data.noDateBatch) ? (data.batch || data.noDateBatch)
+          : 'no data provided'}}
+        </td>
+      </tr>
+      <tr>
+        <td>Storage conditions and directions for use</td>
+        <td>
+          <b>
+            <!-- prettier-ignore -->
+            {{data && Object.keys(data.storageConditions).reduce((a, e) => a ||
+              data.storageConditions[e] === true, false) ? 'Storage conditions:':''}}
+          </b>
+          <!-- prettier-ignore -->
+          {{ data && data.storageConditions.storeInCoolDryConditions ? 'Store in cool dry conditions.' : '' }}
+            {{ data && data.storageConditions.refrigerateAfterPurchase ? 'Refrigerate after purchase.' : '' }}
+            {{ data && data.storageConditions.refrigerateAfterOpening ? 'Refrigerate after opening.' : '' }}
+            {{ data && data.storageConditions.keepRefrigeratedAt ? `Keep refrigerated at ${data.storageConditions.keepRefrigeratedAtMinimum || 0} °C to ${data.storageConditions.keepRefrigeratedAtMaximum || 0} °C.` : ''}}
+            {{ data && data.storageConditions && data.storageConditions.keepRefrigeratedAtOrBelow ? 'Keep refrigerated at or below '.concat(data.storageConditions.keepRefrigeratedAtOrBelowTemperature || 0, " \xB0C.") : '' }}
+            {{ data && data.storageConditions.keepFrozenSolid ? 'Keep frozen solid.' : '' }}
+            {{ data && data.storageConditions.keepFrozenSolidUntilReadyToUse ? 'Keep frozen solid until ready to use.' : '' }}
+            {{ data && data.storageConditions.otherPleaseEnter ? data.storageConditions.otherPleaseEnterDetails + '.' : '' }}
+          <br />
+          <b>
+            {{data && Object.keys(data.directionsForUse).reduce((a, e) => a ||
+            data.directionsForUse[e] === true, false) ? 'Directions for use:' :
+            ''}}
+          </b>
+          <p>
+            <!-- prettier-ignore -->
+            {{ data && data.directionsForUse.washBeforeUse ? 'Wash before use.' : '' }}
+            {{ data && data.directionsForUse.refrigerateAfterPurchase ? 'Refrigerate after opening.' : '' }}
+            {{ data && data.directionsForUse.shakeWellBeforeUse ?  'Shake well before use.' : '' }}
+            {{ data && data.directionsForUse.foodShouldBeDrainedBeforeConsumption ? 'Food should be drained before consumption.' : '' }}
+            {{ data && data.directionsForUse.onceOpenedStoreInAnAirtightContainer ? 'Once opened, store in an airtight container.' : '' }}
+            {{ data && data.directionsForUse.onceOpenedKeepRefrigerated  ? 'Once opened, keep refrigerated.' : '' }}
+            {{ data && data.directionsForUse.consumeWithin ? `Consume within ${data.directionsForUse.consumeWithinDaysOfOpening || 0 } days of opening.` : '' }}
+            {{ data && data.directionsForUse.thawBeforeCooking ? 'Thaw before cooking.' : '' }}
+            {{ data && data.directionsForUse.cookFromFrozen ? 'Cook from frozen.': '' }}
+            {{ data && data.directionsForUse.onceThawedDoNotRefreeze ? 'Once thawed, do not refreeze.' : '' }}
+            {{ data && data.directionsForUse.onceThawedUseWithin ? `Once thawed, use within ${data.directionsForUse.onceThawedUseWithinHours} hours.`: '' }}
+            {{ data && data.directionsForUse.thisIsARawProductAndMustBeCookedBeforeEating ? 'This is a raw product and must be cooked before eating.' : '' }}
+            {{ data && data.directionsForUse.notSuitableForMicrowaveCooking ? 'Not suitable for microwave cooking.' : '' }}
+            {{ data && data.directionsForUse.microwaveOn ? `Microwave on ${data.directionsForUse.microwavePower || 'low'} for ${data.directionsForUse.microwaveOnPowerForMinutes || 0} minutes.`: '' }}
+            {{ data && data.directionsForUse.cookFor ? `Cook for ${data.directionsForUse.cookForTime||0} minutes at ${data.directionsForUse.cookForTimeAtTemperature||0} °C.` : '' }}
+            {{ data && data.directionsForUse.cookUntilSteamingHotInTheMiddle ?  'Cook until steaming hot in the middle.' : '' }}
+            {{ data && data.directionsForUse.cautionContentsMayBeHotAfterHeating ?  'Caution, contents may be hot after heating.' : '' }}
+            {{ data && data.directionsForUse.allowToStandFor ? `Allow to stand for ${data.directionsForUse.allowToStandForMinutesBeforeServing||0} minutes before serving.` : '' }}
+            {{ data && data.directionsForUse.doNotRefrigerateOrReheatOnceHeated ? 'Do not refrigerate or reheat once heated.': '' }}
+            {{ data && data.directionsForUse.careHasBeenTakenToRemoveAllBonesFromThisProductHoweverSomeBonesMayRemain ? 'Care has been taken to remove all bones from this product, however some bones may remain.' : '' }}
+            {{ data && data.directionsForUse.otherDirectionsForUse ? data.directionsForUse.otherDirectionsForUseDetails + '.' : '' }}
+            {{ data && data.directionsForUse.cookingPreparationInstructions ? data.directionsForUse.cookingPreparationInstructionsDetails + '.' : '' }}
+          </p>
+          {{data && (Object.keys(data.storageConditions).reduce((a, e) => a ||
+          data.storageConditions[e] === true, false) ||
+          Object.keys(data.directionsForUse).reduce((a, e) => a ||
+          data.directionsForUse[e] === true, false))? '':'no data provided'}}
+        </td>
+      </tr>
+      <tr>
+        <td>Claims</td>
+        <td>
+          <p>
+            Making voluntary claims about your food is very complex and you are
+            recommended to seek professional advice. <br />Please note, that
+            making a claim on your food has other requirements not addressed in
+            Label Buster such as additional sections in your nutritional
+            information panel and requirements under Australian Consumer Law.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>Country of origin</td>
+        <td>
+          Information on how to calculate and display mandatory<a
+            href="https://www.accc.gov.au/business/advertising-promoting-your-business/country-of-origin-claims/country-of-origin-food-labelling"
+            rel="noopener"
+            target="_blank"
+          >
+            country of origin
+          </a>
+          can be found on the Australian Competition and Consumer Commission
+          website.
+        </td>
+      </tr>
+      <tr>
+        <td>Health star rating</td>
+        <td>
+          Information on how to calculate and display a voluntary<a
+            href="https://www.healthstarrating.gov.au/internet/healthstarrating/publishing.nsf/Content/guide-for-industry-document"
+            rel="noopener"
+            target="_blank"
+          >
+            health star rating
+          </a>
+          can be found at the health star rating system website.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <a name="example-label"></a>
+  <h2>Example of food label</h2>
+  <p>
+    Below is an example of what your label could look like, using the
+    information you provided in Label Buster. Label components can be placed
+    anywhere on the label you create. They do not need to be in the specific
+    layout shown here. They may be displayed in any order or arrangement
+  </p>
+  <div class="example-label-wrapper">
+    <div class="example-label">
+      <div class="eg-col">
+        <h3>{{data.foodName || 'no name provided'}}</h3>
+        <p>{{data.productDescription}}</p>
+
+        {{data && Object.keys(data.storageConditions).reduce((a, e) => a ||
+        data.storageConditions[e] === true, false) ? `<b>Storage conditions:</b
+        >`:''}}
+        <!-- prettier-ignore -->
+        {{ data && data.storageConditions.storeInCoolDryConditions ? 'Store in cool dry conditions.' : '' }}
+            {{ data && data.storageConditions.refrigerateAfterPurchase ? 'Refrigerate after purchase.' : '' }}
+            {{ data && data.storageConditions.refrigerateAfterOpening ? 'Refrigerate after opening.' : '' }}
+            {{ data && data.storageConditions.keepRefrigeratedAt ? `Keep refrigerated at ${data.storageConditions.keepRefrigeratedAtMinimum || 0} °C to ${data.storageConditions.keepRefrigeratedAtMaximum || 0} °C.` : '' }}
+            {{ data && data.storageConditions && data.storageConditions.keepRefrigeratedAtOrBelow ? 'Keep refrigerated at or below '.concat(data.storageConditions.keepRefrigeratedAtOrBelowTemperature || 0, " \xB0C.") : '' }}
+            {{ data && data.storageConditions.keepFrozenSolid ? 'Keep frozen solid.' : '' }}
+            {{ data && data.storageConditions.keepFrozenSolidUntilReadyToUse ? 'Keep frozen solid until ready to use.' : '' }}
+            {{ data && data.storageConditions.otherPleaseEnter ? data.storageConditions.otherPleaseEnterDetails  + '.' : '' }}
+        <br />
+        {{data && Object.keys(data.directionsForUse).reduce((a, e) => a ||
+        data.directionsForUse[e] === true, false) ? `<b>Directions for use:</b>`
+        : ''}}
+        <!-- prettier-ignore -->
+        {{ data && data.directionsForUse.washBeforeUse ? 'Wash before use.' : '' }}
+            {{ data && data.directionsForUse.refrigerateAfterPurchase ? 'Refrigerate after opening.' : '' }}
+            {{ data && data.directionsForUse.shakeWellBeforeUse ?  'Shake well before use.' : '' }}
+            {{ data && data.directionsForUse.foodShouldBeDrainedBeforeConsumption ? 'Food should be drained before consumption.' : '' }}
+            {{ data && data.directionsForUse.onceOpenedStoreInAnAirtightContainer ? 'Once opened, store in an airtight container.' : '' }}
+            {{ data && data.directionsForUse.onceOpenedKeepRefrigerated  ? 'Once opened, keep refrigerated.' : '' }}
+            {{ data && data.directionsForUse.consumeWithin ? `Consume within ${data.directionsForUse.consumeWithinDaysOfOpening || 0 } days of opening.` : '' }}
+            {{ data && data.directionsForUse.thawBeforeCooking ? 'Thaw before cooking.' : '' }}
+            {{ data && data.directionsForUse.cookFromFrozen ? 'Cook from frozen.': '' }}
+            {{ data && data.directionsForUse.onceThawedDoNotRefreeze ? 'Once thawed, do not refreeze.' : '' }}
+            {{ data && data.directionsForUse.onceThawedUseWithin ? `Once thawed, use within ${data.directionsForUse.onceThawedUseWithinHours} hours.`: '' }}
+            {{ data && data.directionsForUse.thisIsARawProductAndMustBeCookedBeforeEating ? 'This is a raw product and must be cooked before eating.' : '' }}
+            {{ data && data.directionsForUse.notSuitableForMicrowaveCooking ? 'Not suitable for microwave cooking.' : '' }}
+            {{ data && data.directionsForUse.microwaveOn ? `Microwave on ${data.directionsForUse.microwavePower || 'low'} for ${data.directionsForUse.microwaveOnPowerForMinutes || 0} minutes.`: '' }}
+            {{ data && data.directionsForUse.cookFor ? `Cook for ${data.directionsForUse.cookForTime||0} minutes at ${data.directionsForUse.cookForTimeAtTemperature||0} °C.` : '' }}
+            {{ data && data.directionsForUse.cookUntilSteamingHotInTheMiddle ?  'Cook until steaming hot in the middle.' : '' }}
+            {{ data && data.directionsForUse.cautionContentsMayBeHotAfterHeating ?  'Caution, contents may be hot after heating.' : '' }}
+            {{ data && data.directionsForUse.allowToStandFor ? `Allow to stand for ${data.directionsForUse.allowToStandForMinutesBeforeServing||0} minutes before serving.` : '' }}
+            {{ data && data.directionsForUse.doNotRefrigerateOrReheatOnceHeated ? 'Do not refrigerate or reheat once heated.': '' }}
+            {{ data && data.directionsForUse.careHasBeenTakenToRemoveAllBonesFromThisProductHoweverSomeBonesMayRemain ? 'Care has been taken to remove all bones from this product, however some bones may remain.' : '' }}
+            {{ data && data.directionsForUse.otherDirectionsForUse ? data.directionsForUse.otherDirectionsForUseDetails + '.' : '' }}
+            {{ data && data.directionsForUse.cookingPreparationInstructions ? data.directionsForUse.cookingPreparationInstructionsDetails + '.' : '' }}
+        <div>
+          {{data.dateMarkFood && data.dateMarkFood==='No date field required' ?
+          '' : `
+          <p>
+            <strong>
+              `}}{{data.dateMarkFood && data.dateMarkFood==='No date field
+              required' ? '' : `${data.dateMarkFood}
+            </strong>
+            ${data.bestDate ? ': ' + data.bestDate : ''}
+          </p>
+          `}}{{(data.batch || data.noDateBatch) ? `
+          <p>
+            <strong>Lot identification:</strong>` : ''}} {{data.batch ?
+            data.batch : ''}} {{data.noDateBatch ? data.noDateBatch : ''}}
+          </p>
+        </div>
+      </div>
+      <div class="eg-col">
+        <div>
+          <p>
+            <strong>Ingredients:</strong>{{data.IngredientData &&
+            data.IngredientData.map(function(data){return " " +
+            data.ingredient})}}
+          </p>
+          <div>
+            <p>
+              <b>
+                <!-- prettier-ignore -->
+                {{data && Object.values(data.allergyDeclarations).every(valueCheck =>
+                valueCheck===false) ? '':'Contains:'}}
+              </b>
+              <!-- prettier-ignore -->
+              {{
+                _.reduce(_.filter(_.toPairs(data.allergyDeclarations), function([key, val]) { return val }), function(acc, [key, val], index) {
+                  if (index === _.filter(_.toPairs(data.allergyDeclarations), function([key, val]) { return val }).length - 1) return acc + ` ${val}.`;
+                  return acc + ` ${val}, `;
+                }, '')
+              }}
+              <br />
+            </p>
+            <p class="wrap">
+              <!-- prettier-ignore -->
+              {{ data && data.statementsSummary && data.statementsSummary.egg ? 'The product is unpasteurised.' : '' }}
+              {{ data && data.statementsSummary && (data.statementsSummary.alcohol_10G100G || data.statementsSummary.alcohol_25G100G || data.statementsSummary.alcohol_comb_10G100G) ? 'Excess consumption may have a laxative effect.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.aspartame ? 'This product contains phenylalanine.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.phytosterols ? 'This product should be consumed as part of a healthy diet.This product may not be suitable for children under 5 years and pregnant or lactating women.Plant sterols do not provide additional benefits when consumed in excess of 3 grams per day.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.quinine ? 'This product contains quinine.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.guarana ? 'This product contains caffeine.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.bee_pollen ? 'The product contains bee pollen which can cause severe allergic reactions.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.propolls ? 'The product contains propolis which can cause severe allergic reactions.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.royal_jelly ? 'This product contains royal jelly which has been reported to cause severe allergic reactions and in rare cases,fatalities, especially in asthma and allergy sufferers.' : '' }}
+              {{ data && data.statementsSummary && (data.statementsSummary.milk_falt || data.statementsSummary.evaporated_milk || data.statementsSummary.soy_milk || data.statementsSummary.evap_milk)? 'The product is not suitable as a complete milk replacement for children under 2 years.' : '' }}
+              {{ data && data.statementsSummary && (data.statementsSummary.unpasteurised_product || data.statementsSummary.unpasteurised_milk) ? 'The product has not been pasteurised.' : '' }}
+              {{ data && data.statementsSummary && (data.statementsSummary.formed_fish || data.statementsSummary.formed_meat) ? 'This food is formed.' : '' }}
+              {{ data && data.statementsSummary && (data.statementsSummary.joined_fish || data.statementsSummary.joined_meat) ? 'This food is joined.' : '' }}
+              {{ data && data.statementsSummary && (data.statementsSummary.kava_dry || data.statementsSummary.kava_root) ? 'Use in moderation.May cause drowsiness.' : '' }}
+              {{ data && data.statementsSummary && (data.statementsSummary.cola_caffeine || data.statementsSummary.ingredient_caffeine) ? 'The product contains caffeine.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.added_fluoride ? 'The product contains added fluoride.' : '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.Alcohol ? data.statementsSummary.ifSelectedAlcohol + '.': '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.edible_oil ? data.statementsSummary.ifSelectedOil + '.': '' }}
+              {{ data && data.statementsSummary && data.statementsSummary.salt_subs ? data.statementsSummary.ifSelectedSalt + '.': '' }}
+            </p>
+          </div>
+          <br />
+        </div>
+        <div class="address-block">
+          <b>{{data.businessName}}</b>
+          <br />{{data.addressDetails.addressLine1}}
+          <br />{{data.addressDetails.addressLine2}} <br /><span class="suburb"
+            >{{data.addressDetails.addressLine3}}</span
+          >
+          <br />{{data.addressDetails.state1}},{{data.addressDetails.postcode}}
+        </div>
+      </div>
+      <div class="eg-col">
+        <img
+          src="https://www.qld.gov.au/?a=148984"
+          alt="example food label"
+          class="src"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <a name="legibility-requirements"></a>
+  <h2>Legibility requirements</h2>
+  <p>
+    All required words, statements, expressions or designs provided on a food
+    label must be in English, be legible, and be prominent so as to contrast
+    distinctly with the background of the label.
+  </p>
+  <p>
+    Information in other languages is permitted, provided it does not negate or
+    contradict the English information.
+  </p>
+  <p>
+    No specific print type or size is defined for general labelling
+    requirements, however:
+  </p>
+  <ul>
+    <li>
+      warning statements must be in a type size of at least 3mm (or 1.5mm on
+      small packages)
+    </li>
+    <li>
+      a print size is prescribed in the Food Standards Code for some foods where
+      a required statement must be shown (e.g. infant formula).
+    </li>
+  </ul>
+</section>
+<section>
+  <a name="exemptions"></a>
+  <h2>Exemptions</h2>
+  <p>
+    All of the food label information needs to be included on your food label,
+    except for:
+  </p>
+  <ul>
+    <li>
+      <a
+        href="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/food-labelling-exemptions-and-extra-requirements"
+        target="_blank"
+        rel="noopener"
+      >
+        Food sold in small packages
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/food-labelling-exemptions-and-extra-requirements"
+        target="_blank"
+        rel="noopener"
+      >
+        Food with one ingredient
+      </a>
+    </li>
+  </ul>
+</section>
+<section>
+  <a name="extra-requirements"></a>
+  <h2>Food with extra requirements</h2>
+  <p>There are extra requirements for:</p>
+  <ul>
+    <li>
+      <a
+        href="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/food-labelling-exemptions-and-extra-requirements"
+        target="_blank"
+        rel="noopener"
+      >
+        Food sold from a vending machine</a
+      >
+    </li>
+    <li>
+      <a
+        href="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/food-labelling-exemptions-and-extra-requirements"
+        target="_blank"
+        rel="noopener"
+      >
+        Food sold in a hamper
+      </a>
+    </li>
+  </ul>
+</section>

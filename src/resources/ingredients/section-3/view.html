@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="./styles.scss" />
+<section>
+  <article class="qg-callout__box qg-callout__grey-theme">
+    <div class="qg-callout__header col-12">
+      <span class="qg-callout__icon"> <i class="fa fa-info-circle"></i> </span>
+      <h2 class="qg-callout__title">
+        The ingredients should be shown on a food label as:
+      </h2>
+    </div>
+
+    <div class="qg-callout__content col-12">
+      <div class="qg-callout__bottom-alignment">
+        <div class="qg-callout__description">
+          <p>
+            <strong>Ingredients</strong>: {{data.IngredientData &&
+            data.IngredientData.map(function(data){ return " " +
+            data.ingredient})}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

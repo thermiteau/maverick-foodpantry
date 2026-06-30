@@ -1,0 +1,294 @@
+@import './components/help-guide.scss';
+@import './formio/radio.scss';
+
+.formio-form {
+  > div {
+    > nav {
+      display: none;
+    }
+    > ul {
+      display: none;
+    }
+  }
+}
+
+#formio.lb {
+  p button:not(.accordion-btn) {
+    margin-right: 5px;
+  }
+
+  .heading-primary {
+    font-size: 1.5625rem;
+  }
+
+  .alert.alert-danger {
+    display: none;
+  }
+
+  > .alert.alert-success {
+    display: none;
+  }
+
+  .question-margin {
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+
+  legend {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .required-element::after,
+  .required_fieldset legend::after {
+    content: '*';
+    color: #f85c50;
+  }
+
+  .fa {
+    margin-right: 5px;
+    font-size: 1.5625rem;
+  }
+
+  .alert-instructions {
+    background-color: #f5f5f5;
+    border-left: 5px solid #808080;
+  }
+
+  .qg-callout__box {
+    img {
+      width: 150px;
+    }
+  }
+
+  .qg-callout__description {
+    word-break: break-word;
+  }
+
+  .qg-accordion {
+    article {
+      img {
+        width: 250px;
+      }
+    }
+  }
+
+  .termsCheckbox {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .invalid-feedback {
+    display: block;
+  }
+
+  table.table {
+    width: 100%;
+    display: block;
+    overflow-x: scroll;
+  }
+}
+
+ol.lb {
+  counter-reset: lb-counter;
+  text-align: left;
+  text-size-adjust: 100%;
+  margin-left: 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  li {
+    counter-increment: lb-counter;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-left: 60px !important;
+    button {
+      width: 100%;
+      text-align: left;
+      display: block;
+      &:focus {
+        box-shadow: none;
+      }
+      &.active {
+        color: white;
+      }
+    }
+    &::before {
+      content: counter(lb-counter);
+      color: #005e85;
+      font-weight: bold;
+      font-size: 0.9375rem;
+      background-color: white;
+      height: 21px;
+      width: 21px;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+    &:hover {
+      background-color: #d1d1d1;
+    }
+    &:active,
+    &.active {
+      background-color: #005e85;
+      color: white;
+    }
+    &.disabled {
+      color: #777;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+}
+
+#formio:focus {
+  outline: none;
+}
+
+#formnav {
+  display: none;
+}
+
+// https://meowni.ca/hidden.is.a.lie.html
+[hidden] {
+  display: none !important;
+}
+
+.qg-accordion article .acc-heading img {
+  width: 1.65em;
+  height: auto;
+  margin-left: -15px;
+}
+
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
+
+.accordion-btn {
+  color: #13578b;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  display: inline;
+  padding: 0;
+  font-weight: 600;
+  cursor: pointer;
+
+  small {
+    pointer-events: none;
+  }
+
+  &.lrg-link {
+    font-size: 1.125rem;
+  }
+}
+
+#qg-primary-content figure.no-max-width:not(.qg-nofig) {
+  max-width: unset !important;
+}
+
+#cancelconfirmationwrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#cancelconfirmationdialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 33%;
+  padding: 16px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  box-shadow: 5px 5px 5px;
+
+  .buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-self: flex-end;
+    justify-self: baseline;
+  }
+
+  h2 {
+    margin-top: -14px;
+    margin-inline-end: 14px;
+    padding-top: 0;
+  }
+
+  .close {
+    display: flex;
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    margin: -16px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  hr {
+    border: 0;
+    border-bottom: 1px solid #e9ecef;
+    width: 100%;
+    margin-bottom: 16px;
+    margin-top: 24px;
+  }
+}
+
+#qg-content #qg-section-nav li a.opened:before {
+  opacity: 0.5;
+}
+
+#qg-content #qg-section-nav li a.opened {
+  color: #005375;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#qg-content #qg-section-nav li a.opened:hover {
+  text-decoration: none;
+  background-color: #d1d1d1;
+}
+// print button styles
+
+.controls.btn-print{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  #cancelconfirmationdialog {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1200px) {
+  #cancelconfirmationdialog {
+    width: 60%;
+  }
+}
+
+@media print {
+  #help-guide,
+  #help-guide * {
+    display: none !important;
+  }
+  .form-radio input::after {
+    display: none !important;
+  }
+}

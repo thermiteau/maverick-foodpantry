@@ -1,0 +1,97 @@
+{
+  "name": "label-buster",
+  "version": "0.0.3",
+  "description": "Food Pantry - Label buster",
+  "author": "Smart Service Queensland",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Nishtha Gakkhar"
+    },
+    {
+      "name": "Jordan Binskin"
+    },
+    {
+      "name": "Daniel Turner"
+    }
+  ],
+  "browserslist": [
+    "chrome >= 76",
+    "safari >= 11",
+    "ie 11",
+    "firefox >= 68",
+    "edge >= 17",
+    "samsung >= 9"
+  ],
+  "bugs": {
+    "url": "https://github.com/DanielTurner/label-buster/issues"
+  },
+  "scripts": {
+    "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.html\" --check --ignore-path .gitignore",
+    "lint:prettierjs": "prettier \"**/*.js\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.html\" --write --ignore-path .gitignore",
+    "format:prettierjs": "prettier \"**/*.js\" --write --ignore-path .gitignore",
+    "format:partials": "npm run formatFile './src/components/partials/*.js'",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier && npm run format:partials",
+    "test": "karma start",
+    "test:watch": "karma start --auto-watch=true --single-run=false",
+    "start": "parcel src/index.html",
+    "build": "npm install && rimraf dist && rimraf .cache && npm run build:resources && npm run build:squiz",
+    "build:resources": "parcel build src/resources/**/*.html src/resources/**/**/*.html --no-source-maps",
+    "build:squiz": "parcel build src/index.html --no-source-maps",
+    "svg-icons-to-png": "convert-svg-to-png --height 24px --width 24px src/assets/*.svg && mv src/assets/*.png static",
+    "postinstall": "node ./postinstall.js",
+    "formatFile": "node ./formatFile.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@open-wc/testing": "^2.5.32",
+    "@open-wc/testing-karma": "^4.0.9",
+    "browserify": "^17.0.0",
+    "browserify-istanbul": "^3.0.1",
+    "common-js": "^0.3.8",
+    "convert-svg-to-png": "^0.5.0",
+    "deepmerge": "^4.2.2",
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-html": "^6.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-json": "^2.1.2",
+    "husky": "^5.1.2",
+    "karma": "^6.1.1",
+    "lint-staged": "^10.5.4",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-inliner": "^1.0.16",
+    "prettier": "2.2.1",
+    "prettier-eslint": "^12.0.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.32.8",
+    "sinon": "^9.2.4"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 80,
+    "arrowParens": "avoid"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run build && npm test && npm run format:partials"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix"
+    ],
+    "*.html": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "lit-html": "^1.3.0"
+  }
+}

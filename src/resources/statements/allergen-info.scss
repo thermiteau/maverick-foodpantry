@@ -1,0 +1,53 @@
+.allergen-checkbox input[type='checkbox'] {
+  margin-top: 0px;
+}
+
+.allergen-checkbox input[type="checkbox"], .advisory-checkbox input[type="checkbox"] , .dependent-questions input[type="checkbox"]{
+    height:28px;
+    width:28px;
+}
+
+.allergen-checkbox span, .allergen-checkbox small.hint , .advisory-checkbox span, .advisory-checkbox small.hint, .dependent-questions span{
+    margin-left: 20px;
+    display: block;
+}
+
+.allergen-checkbox label, .dependent-questions label {
+    font-weight: normal;
+}
+
+.allergen-checkbox input[type="checkbox"]{
+    margin-top: 0px;
+}
+
+.advisory-checkbox input[type="checkbox"]{
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.warning-section {
+    width: 260px;
+    height: 144px;
+    margin: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid 1px #808080;
+}
+
+.warning-section img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:40px;
+}
+
+.warning-section span {
+    display:table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10px;
+}
+
+input.form-check-input:hover > .warning-section {
+  background-color: #007eb1;
+}

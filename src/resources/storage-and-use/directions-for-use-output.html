@@ -1,0 +1,44 @@
+<section>
+  <article class="qg-callout__box qg-callout__grey-theme">
+    <div class="qg-callout__header col-12">
+      <span class="qg-callout__icon">
+        <i class="fa fa-info-circle"></i>
+      </span>
+      <h2 class="qg-callout__title">
+        The directions for use should be shown on the food label as:
+      </h2>
+    </div>
+    <div class="qg-callout__content col-12">
+      <div class="qg-callout__bottom-alignment">
+        <div class="qg-callout__description">
+          <p>
+            <b>Directions for use:</b>
+            <!-- prettier-ignore -->
+            {{ data && data.directionsForUse.washBeforeUse ? 'Wash before use.': '' }}
+            {{ data && data.directionsForUse.refrigerateAfterPurchase ? 'Refrigerate after opening.' : '' }}
+            {{ data && data.directionsForUse.shakeWellBeforeUse ? 'Shake well before use.' : '' }}
+            {{ data && data.directionsForUse.foodShouldBeDrainedBeforeConsumption ? 'Food should be drained before consumption.' : '' }}
+            {{ data && data.directionsForUse.onceOpenedStoreInAnAirtightContainer ? 'Once opened, store in an airtight container.' : '' }}
+            {{ data && data.directionsForUse.onceOpenedKeepRefrigerated ? 'Once opened, keep refrigerated.' : '' }}
+            {{ data && data.directionsForUse.consumeWithin ? `Consume within ${data.directionsForUse.consumeWithinDaysOfOpening || 0 } days of opening.` : '' }}
+            {{ data && data.directionsForUse.thawBeforeCooking ? 'Thaw before cooking.' : '' }}
+            {{ data && data.directionsForUse.cookFromFrozen ? 'Cook from frozen.': '' }}
+            {{ data && data.directionsForUse.onceThawedDoNotRefreeze ? 'Once thawed, do not refreeze.' : '' }}
+            {{ data && data.directionsForUse.onceThawedUseWithin ? `Once thawed, use within ${data.directionsForUse.onceThawedUseWithinHours} hours.`: '' }}
+            {{ data && data.directionsForUse.thisIsARawProductAndMustBeCookedBeforeEating ? 'This is a raw product and must be cooked before eating.' : '' }}
+            {{ data && data.directionsForUse.notSuitableForMicrowaveCooking ? 'Not suitable for microwave cooking.' : '' }}
+            {{ data && data.directionsForUse.microwaveOn ? `Microwave on ${data.directionsForUse.microwavePower || 'low'} for ${data.directionsForUse.microwaveOnPowerForMinutes || 0}.`: '' }}
+            {{ data && data.directionsForUse.cookFor ? `Cook for ${data.directionsForUse.cookForTime||0} minutes at ${data.directionsForUse.cookForTimeAtTemperature||0} °C.` : '' }}
+            {{ data && data.directionsForUse.cookUntilSteamingHotInTheMiddle ? 'Cook until steaming hot in the middle.' : '' }}
+            {{ data && data.directionsForUse.cautionContentsMayBeHotAfterHeating ? 'Caution, contents may be hot after heating.' : '' }}
+            {{ data && data.directionsForUse.allowToStandFor ? `Allow to stand for ${data.directionsForUse.allowToStandForMinutesBeforeServing||0} minutes before serving.` : '' }}
+            {{ data && data.directionsForUse.doNotRefrigerateOrReheatOnceHeated ? 'Do not refrigerate or reheat once heated.': '' }}
+            {{ data && data.directionsForUse.careHasBeenTakenToRemoveAllBonesFromThisProductHoweverSomeBonesMayRemain ? 'Care has been taken to remove all bones from this product, however some bones may remain.' : '' }}
+            {{ data && data.directionsForUse.otherDirectionsForUse ? `${data.directionsForUse.otherDirectionsForUseDetails + '.' || ''}` : '' }}
+            {{ data && data.directionsForUse.cookingPreparationInstructions ? `${data.directionsForUse.cookingPreparationInstructionsDetails + '.'  || ''}` : '' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

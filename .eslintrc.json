@@ -1,0 +1,59 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "Formio": "readonly"
+  },
+  "plugins": ["eslint-plugin-html"],
+  "extends": ["eslint-config-prettier", "airbnb-base"],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "eol-last": "error",
+    "no-console": "error",
+    "no-alert": "error",
+    "valid-jsdoc": [
+      2,
+      {
+        "requireReturnDescription": false,
+        "requireReturn": false
+      }
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed",
+      {
+        "requireForBlockBody": true
+      }
+    ],
+    "no-underscore-dangle": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "ForInStatement",
+        "message": "for..in loops iterate over the entire prototype chain, which is virtually never what the author intended. Instead, use Object.{keys,values,entries}, and iterate over the resulting array."
+      },
+      {
+        "selector": "LabeledStatement",
+        "message": "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."
+      },
+      {
+        "selector": "WithStatement",
+        "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
+      }
+    ],
+    "max-len": [
+      "error",
+      80,
+      2,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": false,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ]
+  }
+}

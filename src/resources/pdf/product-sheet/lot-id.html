@@ -1,0 +1,10 @@
+<div class="product-sheet-row secondary">
+  <div>
+    <strong>Lot identification</strong>
+  </div>
+  <div>
+    <!-- prettier-ignore -->
+    {{(data.batch || data.noDateBatch) ? (data.batch || data.noDateBatch)
+      : 'no data provided'}}
+  </div>
+</div>

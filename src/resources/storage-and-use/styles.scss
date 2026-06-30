@@ -1,0 +1,22 @@
+.storage-section span {
+  margin-left: 20px;
+  display: inline-block;
+}
+
+.storage-section label {
+  font-weight: normal;
+}
+
+.storage-section input[type='checkbox'] {
+  margin-top: 0px;
+  height: 28px;
+  width: 28px;
+}
+
+.storage-section .column-section .input-group-append {
+  margin-left: -20px;
+}
+
+.keep-ref-to,.microwave-component,.cook-component {
+  margin: -5px !important;
+}

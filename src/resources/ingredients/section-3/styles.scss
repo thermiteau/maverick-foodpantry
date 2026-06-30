@@ -1,0 +1,107 @@
+.btn.btn-primary.formio-button-add-row,
+.btn.btn-primary.formio-button-add-row:active,
+.btn.btn-primary.formio-button-add-row:focus
+  .btn.btn-primary.formio-button-add-row:active:focus {
+  background-color: #007eb1;
+  color: #fff !important;
+  border: none;
+  box-shadow: none !important;
+  padding-left: 14px;
+  margin-top: 15px;
+}
+
+.fa.fa-arrows-v.ingredient-arrow {
+  margin-right: 0px !important;
+}
+
+.fa.fa-arrows-v.ingredient-arrow:before {
+  font-size: small;
+}
+
+.btn.btn-primary.formio-button-add-row i.fa.fa-plus:before {
+  content: none;
+}
+
+.fa-times-circle-o:before {
+  content: '\f1f8';
+  color: #000000;
+}
+
+.fa-bars:before,
+.fa-navicon:before,
+.fa-reorder:before {
+  content: '\f07d';
+  color: #000000;
+}
+
+button.btn.btn-secondary.formio-button-remove-row,
+button.formio-drag-button.btn.btn-default.fa.fa-bars {
+  background-color: transparent;
+  border: none;
+  height: 90px;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active:focus {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.fa.fa-times-circle-o:hover:before,
+.fa-bars:hover:before,
+.fa-navicon:hover:before,
+.fa-reorder:hover:before {
+  color: #13578b;
+}
+
+th:nth-child(1):before {
+  content: 'Reorder';
+  white-space: pre;
+}
+th:nth-child(3):before {
+  content: 'Delete';
+}
+
+th:nth-child(1),
+th:nth-child(3) {
+  width: 10%;
+}
+
+.qg-table thead th,
+.table thead th,
+.table thead th,
+.qg-table th,
+.table th {
+  vertical-align: middle;
+}
+
+p.wrap {
+  word-break: break-all;
+  white-space: normal;
+}
+
+#qg-primary-content table tr:nth-child(2n),
+#qg-primary-content table tr {
+  background: transparent;
+}
+
+#qg-primary-content table tbody tr:nth-child(2n):hover,
+#qg-primary-content table tbody tr:hover {
+  background: #c0c0c0;
+}
+
+#qg-primary-content table tr td {
+  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.btn.btn-primary.formio-button-add-row {
+  margin-bottom: 15px;
+}
+
+tfoot {
+  background-color: #fff;
+}

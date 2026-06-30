@@ -1,0 +1,9 @@
+<div class="product-sheet-row">
+  <div>
+    <strong>Ingredients</strong>
+  </div>
+  <div>
+    <!-- prettier-ignore -->
+    {{ data.IngredientData && data.IngredientData.map(function(data){ return ' ' + data.ingredient}) }}
+  </div>
+</div>
