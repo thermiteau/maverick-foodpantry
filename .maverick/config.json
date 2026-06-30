@@ -1,0 +1,37 @@
+{
+  "modules": [
+    "github-actions",
+    "nodejs"
+  ],
+  "integration": {
+    "init": true,
+    "alignment": false,
+    "upskill": true,
+    "tech_docs_scaffolded": true,
+    "code_review_workflow": false,
+    "cybersecurity_reviewed": true
+  },
+  "git_workflow": {
+    "story_base": "main",
+    "pr_target": "main",
+    "promotion_chain": [
+      "main"
+    ],
+    "branch_prefixes": {
+      "bug": "fix",
+      "fix": "fix",
+      "defect": "fix",
+      "feature": "feat",
+      "enhancement": "feat",
+      "docs": "docs",
+      "documentation": "docs",
+      "refactor": "refactor",
+      "tech-debt": "refactor",
+      "chore": "chore",
+      "maintenance": "chore",
+      "deps": "chore",
+      "test": "test",
+      "testing": "test"
+    }
+  }
+}
