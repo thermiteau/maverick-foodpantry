@@ -7,7 +7,10 @@ export function modifyAccordionState(e, newState) {
   //  closest is working (supported using Babel polyfill)
   const accordionSection = e
     .composedPath()
-    .find(element => element.classList.contains('qg-accordion'));
+    .find(
+      element => element.classList && element.classList.contains('qg-accordion'),
+    );
+  if (!accordionSection) return;
   const articles = accordionSection.querySelectorAll(
     '.qg-accordion article input[type="checkbox"]',
   );
