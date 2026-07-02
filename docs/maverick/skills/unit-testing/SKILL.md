@@ -2,7 +2,7 @@
 name: unit-testing
 title: Unit Testing — Project Implementation
 topic: unit-testing
-last-verified: 2026-06-30
+last-verified: 2026-07-03
 ---
 
 ## Stack
@@ -34,4 +34,5 @@ Karma is configured in `karma.conf.js` using `createDefaultConfig` from `@open-w
 - `test/formio-wrapper-events.test.js` — FormioWrapper event-handling tests
 - `test/button-group.test.js` — ButtonGroup unit tests
 - `test/help-guide.test.js` — HelpGuide unit tests
+- `test/collapse-expand.test.js` — accordion expand/collapse unit tests, including guard-clause paths for missing controls/section
 - `test/config.js` — shared test configuration object
