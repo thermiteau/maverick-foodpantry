@@ -2,7 +2,7 @@
 title: Resources and Views
 scope: component
 relates-to: [architecture-overview.md, validation-system.md, help-guide.md]
-last-verified: 2026-06-30
+last-verified: 2026-07-03
 ---
 
 ## Overview
@@ -95,7 +95,7 @@ At build time, `npm run svg-icons-to-png` converts SVGs to 24×24px PNGs using `
 | File | Purpose |
 |---|---|
 | `step-handlers.js` | Attaches expand/collapse listeners to the accordion on page 2 (About Food Labels) |
-| `collapse-expand.js` | `modifyAccordionState()` and `addExpandCollapse()` — sets all checkbox inputs in a `.qg-accordion` to checked/unchecked |
+| `collapse-expand.js` | `modifyAccordionState()` and `addExpandCollapse()` — sets all checkbox inputs in a `.qg-accordion` to checked/unchecked; both functions guard against a missing accordion section or missing expand/collapse controls and return silently rather than throwing |
 | `reapply-selected.js` | `ReapplySelected` class — adds `.radio-selected` CSS class to checked radio containers; compensates for Form.io re-rendering stripping applied classes |
 | `print.js` | Print-specific script for PDF label view |
 
